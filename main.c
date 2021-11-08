@@ -10,19 +10,24 @@ int main(int argc, char *argv[]) {
       d = opendir(argv[1]);
       if (errno != 0) {
         printf("There was an error opening the directory: %s", strerror(errno));
-        printf("Please give a valid path: \n");
-        char newPath[500];
-
-        // grab the file name
-        read(STDIN_FILENO, newPath, sizeof(newPath));
-
-        d = opendir(argv[1]);
-        if (errno != 0) {
-          printf("There was an error opening the directory: %s", strerror(errno));
-          return 0;
-        }
       }
     }
+    else {
+      char *newPath;
+      printf("Please give a valid path: \n");
+
+      // grab the file name
+      scanf("%ms", &newPath);
+      d = opendir(newPath);
+      free(newPath);
+
+
+      if (errno != 0) {
+        printf("There was an error opening the directory: %s", strerror(errno));
+        return 0;
+      }
+    }
+
     long size = 0;
 
     directDent = readdir(d);
