@@ -5,30 +5,24 @@ int main(int argc, char *argv[]) {
 
     DIR *d;
     struct dirent *directDent;
-    char newPath[500];
 
     if (argc > 1) {
       d = opendir(argv[1]);
       if (errno != 0) {
         printf("There was an error opening the directory: %s", strerror(errno));
+        printf("Please give a valid path: \n");
+        char newPath[500];
+
+        // grab the file name
+        read(STDIN_FILENO, newPath, sizeof(newPath));
+
+        d = opendir(argv[1]);
+        if (errno != 0) {
+          printf("There was an error opening the directory: %s", strerror(errno));
+          return 0;
+        }
       }
     }
-    else {
-      printf("Please give a valid path: \n");
-      printf("what the fuck");
-
-      // grab the file name
-      //read(STDIN_FILENO, newPath, sizeof(newPath));
-      fgets(newPath, 500, stdin);
-
-
-      d = opendir(newPath);
-      if (errno != 0) {
-        printf("There was an error opening the directory: %s", strerror(errno));
-        return 0;
-      }
-    }
-
     long size = 0;
 
     directDent = readdir(d);
