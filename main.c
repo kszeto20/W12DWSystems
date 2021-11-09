@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
     directDent = readdir(d);
 
-    printf("Statistics for directory: ./ (Current Directory)\n");
+    printf("Statistics for directory: \n");
 
     // readdir = next
     while (directDent != NULL) {
